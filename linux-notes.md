@@ -1,24 +1,49 @@
-# Linux Deployment Notes
+# 🚀 Linux Deployment Notes (Faasen Trading)
 
-## Server Setup
-- Ubuntu 22.04 VM
-- Installed NVM + Node
-- Hardened with sudo user + UFW
-- Cloned project repo
+## 1. Server Setup
+- **OS:** Ubuntu 22.04 LTS (VM)
+- **Security:**
+  - Enabled firewall (UFW) with OpenSSH allowed
+- **Node Environment:**
+  - Installed **NVM**
+  - Installed **Node.js LTS** via NVM
+  - Installed project dependencies using `npm install`
+- **Version Control:**
+  - Generated SSH keypair for GitHub access
+  - Added public key to GitHub
+  - Set repo remote to SSH
+  - Verified authentication via `ssh -T git@github.com`
+- **Code Base:**
+  - Cloned project into `/home/faasen/projects/Faasen-Trading`
 
-## Systemd Service
-Location:
-  /etc/systemd/system/faasentrading.service
+---
 
-Key features:
-- Runs Next.js in production
-- Loads via start-faasentrading.sh
-- Restart on failure
-- Auto-start on boot
+## 2. Systemd Service (Production)
+**Service file path:**
+`/etc/systemd/system/faasentrading.service`
 
-## Deployment Workflow
-1. git pull
-2. npm install
-3. npm run build
-4. systemctl restart faasentrading
-5. Verified via http://localhost:3000
+**Purpose:**
+Runs the Next.js application in **production mode** using a custom startup script that loads NVM and launches the app.
+
+**Key Features:**
+- Loads NVM automatically
+- Runs Next.js in production (`npm start`)
+- Automatically restarts on failure
+- Auto-starts on boot
+- Controlled working directory
+- Managed entirely through systemd
+
+### `start-faasentrading.sh` (project root)
+
+```bash
+#!/usr/bin/env bash
+set -e
+
+# Load NVM environment
+export NVM_DIR="/home/faasen/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+cd /home/faasen/projects/Faasen-Trading
+
+npm start
+
