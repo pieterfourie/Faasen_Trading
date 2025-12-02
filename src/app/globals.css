@@ -1,0 +1,140 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Faasen Trading - South African B2B Supply Chain Theme */
+/* Industrial, Trustworthy, Professional */
+
+@layer base {
+  :root {
+    /* Deep Teal - Primary brand color */
+    --background: 180 15% 98%;
+    --foreground: 200 25% 10%;
+    
+    --card: 0 0% 100%;
+    --card-foreground: 200 25% 10%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 200 25% 10%;
+    
+    /* Teal primary */
+    --primary: 175 65% 30%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 180 10% 94%;
+    --secondary-foreground: 200 25% 15%;
+    
+    --muted: 180 10% 94%;
+    --muted-foreground: 200 10% 45%;
+    
+    /* Gold accent for success/highlights */
+    --accent: 42 85% 55%;
+    --accent-foreground: 200 25% 10%;
+    
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 180 15% 88%;
+    --input: 180 15% 88%;
+    --ring: 175 65% 30%;
+    
+    /* Chart colors */
+    --chart-1: 175 65% 30%;
+    --chart-2: 42 85% 55%;
+    --chart-3: 200 70% 45%;
+    --chart-4: 160 60% 40%;
+    --chart-5: 25 80% 55%;
+    
+    --radius: 0.625rem;
+  }
+
+  .dark {
+    --background: 200 25% 8%;
+    --foreground: 180 15% 95%;
+    
+    --card: 200 20% 12%;
+    --card-foreground: 180 15% 95%;
+    
+    --popover: 200 20% 12%;
+    --popover-foreground: 180 15% 95%;
+    
+    --primary: 175 55% 45%;
+    --primary-foreground: 200 25% 5%;
+    
+    --secondary: 200 15% 18%;
+    --secondary-foreground: 180 15% 90%;
+    
+    --muted: 200 15% 18%;
+    --muted-foreground: 180 10% 60%;
+    
+    --accent: 42 75% 50%;
+    --accent-foreground: 200 25% 5%;
+    
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 200 15% 20%;
+    --input: 200 15% 20%;
+    --ring: 175 55% 45%;
+    
+    --chart-1: 175 55% 50%;
+    --chart-2: 42 75% 55%;
+    --chart-3: 200 60% 55%;
+    --chart-4: 160 50% 50%;
+    --chart-5: 25 70% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+}
+
+/* Custom utilities */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  /* Gradient backgrounds */
+  .bg-gradient-faasen {
+    background: linear-gradient(135deg, hsl(175 65% 30%) 0%, hsl(200 70% 25%) 100%);
+  }
+  
+  .bg-gradient-faasen-light {
+    background: linear-gradient(135deg, hsl(175 40% 95%) 0%, hsl(200 30% 92%) 100%);
+  }
+  
+  /* Subtle grid pattern for backgrounds */
+  .bg-grid-pattern {
+    background-image: 
+      linear-gradient(to right, hsl(180 15% 90%) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(180 15% 90%) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+}
+
+/* Smooth animations */
+@layer base {
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes slide-in-right {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-out forwards;
+  }
+  
+  .animate-slide-in {
+    animation: slide-in-right 0.4s ease-out forwards;
+  }
+}

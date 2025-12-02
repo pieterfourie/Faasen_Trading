@@ -1,0 +1,27 @@
+# Project: Faasen Trading
+# Context: South African Supply Chain Brokerage (B2B)
+
+## Business Logic (The "Golden Rules")
+1.  **The Middleman Rule:** We are a blind broker.
+    - Buyers NEVER see Supplier names/contacts.
+    - Suppliers NEVER see Buyer names/contacts.
+    - Faasen Trading is the counter-party to everyone.
+2.  **The Profit Model:**
+    - `Client_Price` = `Supplier_Price` + `Faasen_Margin` + `Logistics_Cost`.
+    - We profit on the spread.
+3.  **Local Context:**
+    - Currency: ZAR (South African Rand).
+    - Tax: All calculations must handle SA VAT (15%) separately.
+    - Logistics: We hire third-party transporters.
+
+## Tech Stack
+- **Frontend:** Next.js 14 (App Router), Tailwind CSS, Shadcn UI.
+- **Backend:** Supabase (Postgres DB, Auth, Edge Functions).
+- **Automation:** n8n (for email triggers, PDF generation, WhatsApp notifications).
+- **Hosting:** Vercel.
+
+## Core Entities
+- **RFQ (Request for Quotation):** A buyer asking for goods.
+- **Supply Quote:** What the supplier charges US.
+- **Client Offer:** What WE charge the buyer (Supply Quote + Margin).
+- **Deal/Order:** A confirmed transaction.
