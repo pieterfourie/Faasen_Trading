@@ -295,8 +295,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Your Name**
 
-- LinkedIn: [Your LinkedIn](https://www.linkedin.com/in/pieter-faasen-fourie/)
-- GitHub: [@yourusername](https://github.com/pieterfourie)
+- LinkedIn: [Pieter Fourie](https://www.linkedin.com/in/pieter-faasen-fourie/)
+- GitHub: [@PieterFaasenFourie](https://github.com/pieterfourie)
 
 ---
 
