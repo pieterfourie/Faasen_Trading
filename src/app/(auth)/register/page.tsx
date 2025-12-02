@@ -40,7 +40,7 @@ const registerSchema = z.object({
   companyName: z.string().min(2, "Company name is required"),
   contactPerson: z.string().min(2, "Contact person is required"),
   role: z.enum(["buyer", "supplier", "transporter"], {
-    required_error: "Please select your role",
+    message: "Please select your role",
   }),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
