@@ -10,7 +10,6 @@ import {
   Clock,
   XCircle,
   ArrowRight,
-  TrendingUp,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";

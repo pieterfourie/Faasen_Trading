@@ -6,11 +6,9 @@ import {
   Search,
   Filter,
   Truck,
-  MapPin,
   Package,
   CheckCircle2,
   Clock,
-  Upload,
   Camera,
   ArrowRight,
   Navigation,
@@ -23,8 +21,6 @@ import { Input } from "@/components/ui/input";
 import {
   Card,
   CardContent,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import {
   Select,
@@ -206,7 +202,7 @@ export default function MyJobsPage() {
     try {
       // Upload file to Supabase Storage
       const fileName = `pod_${jobId}_${Date.now()}.${file.name.split('.').pop()}`;
-      const { data: uploadData, error: uploadError } = await supabase.storage
+      const { error: uploadError } = await supabase.storage
         .from("documents")
         .upload(fileName, file);
 

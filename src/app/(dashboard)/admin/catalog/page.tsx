@@ -13,7 +13,6 @@ import {
   Building2,
   Phone,
   Mail,
-  ExternalLink,
   ShoppingCart,
 } from "lucide-react";
 import { toast } from "sonner";

@@ -315,8 +315,8 @@ export default function RFQDetailPage() {
             <AlertCircle className="h-12 w-12 text-muted-foreground mb-4" />
             <h3 className="text-lg font-semibold mb-2">Quote in Progress</h3>
             <p className="text-muted-foreground text-center max-w-md">
-              We're gathering quotes from our verified suppliers. 
-              You'll receive a notification when your quote is ready.
+              We&apos;re gathering quotes from our verified suppliers. 
+              You&apos;ll receive a notification when your quote is ready.
             </p>
           </CardContent>
         </Card>

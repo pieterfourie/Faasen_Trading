@@ -32,7 +32,7 @@ export default function AuthLayout({
         {/* Main content */}
         <div className="flex-1 flex flex-col justify-center z-10 max-w-md">
           <h1 className="text-4xl font-bold leading-tight mb-6">
-            South Africa's Trusted Supply Chain Partner
+            South Africa&apos;s Trusted Supply Chain Partner
           </h1>
           <p className="text-white/80 text-lg leading-relaxed">
             Connect with verified suppliers, get competitive quotes, and streamline your procurement — all in one platform.

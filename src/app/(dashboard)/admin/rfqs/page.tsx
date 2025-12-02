@@ -11,7 +11,6 @@ import {
   Eye,
   Calculator,
   CheckCircle2,
-  Package,
   MapPin,
   Percent,
   Truck,

@@ -7,14 +7,11 @@ import {
   ArrowLeft,
   Package,
   MapPin,
-  Calendar,
-  Clock,
   FileText,
   CheckCircle2,
   Truck,
   CreditCard,
   Download,
-  Upload,
   AlertCircle,
 } from "lucide-react";
 import { toast } from "sonner";

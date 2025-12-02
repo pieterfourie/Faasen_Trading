@@ -217,7 +217,7 @@ export default function AdminOrdersPage() {
     // Get supplier product location as fallback
     const supplierId = (offerData?.supplier_quotes as { supplier_id?: string })?.supplier_id;
     let supplierCity = (offerData?.supplier_quotes as { profiles?: { city?: string } })?.profiles?.city;
-    let supplierAddress = (offerData?.supplier_quotes as { profiles?: { address?: string } })?.profiles?.address;
+    const supplierAddress = (offerData?.supplier_quotes as { profiles?: { address?: string } })?.profiles?.address;
 
     // If supplier profile doesn't have city, check their product listing
     if (!supplierCity && supplierId) {
