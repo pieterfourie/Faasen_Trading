@@ -287,7 +287,7 @@ export default function AdminRFQsPage() {
         };
       }));
 
-      setQuotes(enrichedQuotes);
+      setQuotes(enrichedQuotes as unknown as SupplierQuote[]);
     } else {
       setQuotes([]);
     }
