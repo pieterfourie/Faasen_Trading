@@ -124,7 +124,7 @@ export default function OrderDetailPage() {
         return;
       }
 
-      setOrder(orderData);
+      setOrder(orderData as unknown as Order);
 
       // Fetch logistics job
       const { data: logisticsData } = await supabase

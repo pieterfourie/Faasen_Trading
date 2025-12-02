@@ -172,7 +172,7 @@ export default function AdminRFQsPage() {
         setRfqs(data.map(r => ({
           ...r,
           quote_count: countMap.get(r.id) || 0,
-        })));
+        })) as unknown as RFQ[]);
       }
       setLoading(false);
     };

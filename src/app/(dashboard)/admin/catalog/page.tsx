@@ -125,7 +125,7 @@ export default function AdminCatalogPage() {
         .order("created_at", { ascending: false });
 
       if (!error && data) {
-        setProducts(data);
+        setProducts(data as unknown as SupplierProduct[]);
       }
       setLoading(false);
     };
