@@ -110,7 +110,7 @@ export default function QuoteRequestsPage() {
     return matchesSearch && matchesCategory;
   });
 
-  const uniqueCategories = [...new Set(rfqs.map(r => r.product_categories?.name).filter(Boolean))];
+  const uniqueCategories = Array.from(new Set(rfqs.map(r => r.product_categories?.name).filter(Boolean)));
 
   if (loading) {
     return (

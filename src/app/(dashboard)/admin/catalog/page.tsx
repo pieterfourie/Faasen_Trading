@@ -133,7 +133,7 @@ export default function AdminCatalogPage() {
     fetchData();
   }, [router]);
 
-  const uniqueLocations = [...new Set(products.map(p => p.location_province).filter(Boolean))];
+  const uniqueLocations = Array.from(new Set(products.map(p => p.location_province).filter(Boolean)));
 
   const filteredProducts = products.filter((product) => {
     const matchesSearch =

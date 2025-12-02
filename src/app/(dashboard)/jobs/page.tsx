@@ -147,7 +147,7 @@ export default function AvailableJobsPage() {
     }
   };
 
-  const uniqueCities = [...new Set(jobs.flatMap(j => [j.pickup_city, j.delivery_city]).filter(Boolean))];
+  const uniqueCities = Array.from(new Set(jobs.flatMap(j => [j.pickup_city, j.delivery_city]).filter(Boolean)));
 
   const filteredJobs = jobs.filter((job) => {
     const matchesSearch =
