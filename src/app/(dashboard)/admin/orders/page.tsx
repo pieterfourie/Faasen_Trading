@@ -147,7 +147,7 @@ export default function AdminOrdersPage() {
         .order("created_at", { ascending: false });
 
       if (!error && ordersData) {
-        setOrders(ordersData);
+        setOrders(ordersData as unknown as Order[]);
       }
 
       // Fetch approved transporters
