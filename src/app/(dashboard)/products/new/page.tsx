@@ -80,7 +80,8 @@ export default function NewProductPage() {
     setValue,
     formState: { errors },
   } = useForm<ProductFormData>({
-    resolver: zodResolver(productSchema),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    resolver: zodResolver(productSchema) as any,
     defaultValues: {
       unit: "tons",
       minimum_order_quantity: 1,

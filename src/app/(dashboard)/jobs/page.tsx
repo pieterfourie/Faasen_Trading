@@ -117,7 +117,7 @@ export default function AvailableJobsPage() {
         .order("created_at", { ascending: false });
 
       if (!error && data) {
-        setJobs(data);
+        setJobs(data as unknown as LogisticsJob[]);
       }
       setLoading(false);
     };

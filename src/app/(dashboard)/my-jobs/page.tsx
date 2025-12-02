@@ -131,7 +131,7 @@ export default function MyJobsPage() {
       const { data, error } = await query;
 
       if (!error && data) {
-        setJobs(data);
+        setJobs(data as unknown as LogisticsJob[]);
       }
       setLoading(false);
     };

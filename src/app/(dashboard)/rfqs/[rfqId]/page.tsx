@@ -45,6 +45,7 @@ interface RFQ {
 interface ClientOffer {
   id: string;
   vat_percent: number;
+  vat_amount: number;
   final_total: number;
   estimated_delivery_days: number;
   valid_until: string;
@@ -98,12 +99,12 @@ export default function RFQDetailPage() {
       // Fetch client offer if exists (only buyer-safe fields)
       const { data: offerData } = await supabase
         .from("client_offers")
-        .select("id, vat_percent, final_total, estimated_delivery_days, valid_until, status")
+        .select("id, vat_percent, vat_amount, final_total, estimated_delivery_days, valid_until, status")
         .eq("rfq_id", rfqId)
         .single();
 
       if (offerData) {
-        setOffer(offerData);
+        setOffer(offerData as ClientOffer);
       }
 
       setLoading(false);

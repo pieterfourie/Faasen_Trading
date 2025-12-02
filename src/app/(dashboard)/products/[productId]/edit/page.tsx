@@ -38,16 +38,27 @@ const productSchema = z.object({
   name: z.string().min(3, "Product name is required"),
   description: z.string().optional(),
   category_id: z.string().min(1, "Please select a category"),
-  price_per_unit: z.coerce.number().positive("Price must be greater than 0"),
+  price_per_unit: z.preprocess((val) => Number(val), z.number().positive("Price must be greater than 0")),
   unit: z.string().min(1, "Unit is required"),
-  minimum_order_quantity: z.coerce.number().positive("Minimum order must be at least 1"),
-  stock_available: z.coerce.number().optional(),
-  lead_time_days: z.coerce.number().int().min(1, "Lead time is required"),
+  minimum_order_quantity: z.preprocess((val) => Number(val), z.number().positive("Minimum order must be at least 1")),
+  stock_available: z.preprocess((val) => val ? Number(val) : undefined, z.number().optional()),
+  lead_time_days: z.preprocess((val) => Number(val), z.number().int().min(1, "Lead time is required")),
   location_city: z.string().optional(),
   location_province: z.string().optional(),
 });
 
-type ProductFormData = z.infer<typeof productSchema>;
+type ProductFormData = {
+  name: string;
+  description?: string;
+  category_id: string;
+  price_per_unit: number;
+  unit: string;
+  minimum_order_quantity: number;
+  stock_available?: number;
+  lead_time_days: number;
+  location_city?: string;
+  location_province?: string;
+};
 
 interface Category {
   id: string;
@@ -84,7 +95,8 @@ export default function EditProductPage() {
     reset,
     formState: { errors },
   } = useForm<ProductFormData>({
-    resolver: zodResolver(productSchema),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    resolver: zodResolver(productSchema) as any,
   });
 
   useEffect(() => {

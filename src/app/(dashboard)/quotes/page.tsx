@@ -94,7 +94,7 @@ export default function QuoteRequestsPage() {
         has_quoted: quotedRfqIds.has(rfq.id),
       }));
 
-      setRfqs(rfqsWithQuoteStatus);
+      setRfqs(rfqsWithQuoteStatus as unknown as RFQ[]);
       setLoading(false);
     };
 

@@ -86,11 +86,12 @@ export default function MyQuotesPage() {
         .order("created_at", { ascending: false });
 
       if (!error && data) {
-        setQuotes(data);
+        const typedData = data as unknown as SupplierQuote[];
+        setQuotes(typedData);
         setStats({
-          total: data.length,
-          selected: data.filter(q => q.is_selected).length,
-          pending: data.filter(q => !q.is_selected && new Date(q.valid_until) > new Date()).length,
+          total: typedData.length,
+          selected: typedData.filter(q => q.is_selected).length,
+          pending: typedData.filter(q => !q.is_selected && new Date(q.valid_until) > new Date()).length,
         });
       }
       setLoading(false);

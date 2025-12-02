@@ -75,7 +75,7 @@ export default function RFQsPage() {
         .order("created_at", { ascending: false });
 
       if (!error && data) {
-        setRfqs(data);
+        setRfqs(data as unknown as RFQ[]);
       }
       setLoading(false);
     };

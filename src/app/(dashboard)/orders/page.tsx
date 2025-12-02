@@ -107,7 +107,7 @@ export default function OrdersPage() {
       }
       
       if (data) {
-        setOrders(data);
+        setOrders(data as unknown as Order[]);
       }
       setLoading(false);
     };

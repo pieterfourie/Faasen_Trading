@@ -81,7 +81,8 @@ export default function SubmitQuotePage() {
     watch,
     formState: { errors },
   } = useForm<QuoteFormData>({
-    resolver: zodResolver(quoteSchema),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    resolver: zodResolver(quoteSchema) as any,
     defaultValues: {
       valid_until: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
     },
@@ -126,7 +127,7 @@ export default function SubmitQuotePage() {
         return;
       }
 
-      setRfq(rfqData);
+      setRfq(rfqData as unknown as RFQ);
 
       // Check for existing quote
       const { data: quoteData } = await supabase
