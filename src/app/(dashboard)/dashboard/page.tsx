@@ -6,7 +6,6 @@ import {
   ShoppingCart,
   TrendingUp,
   Clock,
-  ArrowUpRight,
   Plus,
 } from "lucide-react";
 import Link from "next/link";
@@ -65,14 +64,73 @@ export default function DashboardPage() {
         setProfile(profileData);
       }
 
-      // Get stats based on role
-      // For now, just show placeholder stats
-      setStats({
-        totalRfqs: 12,
-        activeOrders: 3,
-        pendingQuotes: 5,
-        completedDeals: 24,
-      });
+      // Get real stats based on role
+      if (profileData?.role === "buyer") {
+        const [rfqResult, orderResult] = await Promise.all([
+          supabase.from("rfqs").select("id", { count: "exact" }).eq("buyer_id", user.id),
+          supabase.from("orders").select("id, status", { count: "exact" }).eq("buyer_id", user.id),
+        ]);
+        
+        const activeOrders = orderResult.data?.filter(o => 
+          !["completed", "cancelled"].includes(o.status)
+        ).length || 0;
+        const completedOrders = orderResult.data?.filter(o => o.status === "completed").length || 0;
+        
+        setStats({
+          totalRfqs: rfqResult.count || 0,
+          activeOrders,
+          pendingQuotes: 0,
+          completedDeals: completedOrders,
+        });
+      } else if (profileData?.role === "supplier") {
+        const [quoteRequests, myQuotes] = await Promise.all([
+          supabase.from("rfqs").select("id", { count: "exact" }).in("status", ["new", "sourcing"]),
+          supabase.from("supplier_quotes").select("id, is_selected", { count: "exact" }).eq("supplier_id", user.id),
+        ]);
+        
+        setStats({
+          totalRfqs: quoteRequests.count || 0,
+          activeOrders: myQuotes.data?.filter(q => q.is_selected).length || 0,
+          pendingQuotes: myQuotes.count || 0,
+          completedDeals: 0,
+        });
+      } else if (profileData?.role === "admin") {
+        const [rfqResult, orderResult] = await Promise.all([
+          supabase.from("rfqs").select("id", { count: "exact" }),
+          supabase.from("orders").select("id, status", { count: "exact" }),
+        ]);
+        
+        const activeOrders = orderResult.data?.filter(o => 
+          !["completed", "cancelled"].includes(o.status)
+        ).length || 0;
+        const completedOrders = orderResult.data?.filter(o => o.status === "completed").length || 0;
+        
+        setStats({
+          totalRfqs: rfqResult.count || 0,
+          activeOrders,
+          pendingQuotes: 0,
+          completedDeals: completedOrders,
+        });
+      } else {
+        // Transporter or default
+        const jobsResult = await supabase
+          .from("logistics_jobs")
+          .select("id, status", { count: "exact" });
+        
+        const activeJobs = jobsResult.data?.filter(j => 
+          !["completed", "delivered"].includes(j.status || "")
+        ).length || 0;
+        const completedJobs = jobsResult.data?.filter(j => 
+          ["completed", "delivered"].includes(j.status || "")
+        ).length || 0;
+        
+        setStats({
+          totalRfqs: jobsResult.count || 0,
+          activeOrders: activeJobs,
+          pendingQuotes: 0,
+          completedDeals: completedJobs,
+        });
+      }
 
       setLoading(false);
     };
@@ -152,7 +210,7 @@ export default function DashboardPage() {
           <CardContent>
             <div className="text-2xl font-bold">{stats.totalRfqs}</div>
             <p className="text-xs text-muted-foreground mt-1">
-              <span className="text-green-600 font-medium">+2</span> from last week
+              Total requests
             </p>
           </CardContent>
         </Card>
@@ -212,20 +270,15 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {[
-                { title: "RFQ #2024-0012 submitted", time: "2 hours ago", status: "new" },
-                { title: "Quote received for Steel order", time: "5 hours ago", status: "quoted" },
-                { title: "Order #ORD-2024-0008 delivered", time: "1 day ago", status: "completed" },
-              ].map((item, i) => (
-                <div key={i} className="flex items-center gap-4">
-                  <div className="w-2 h-2 rounded-full bg-primary" />
-                  <div className="flex-1">
-                    <p className="text-sm font-medium">{item.title}</p>
-                    <p className="text-xs text-muted-foreground">{item.time}</p>
-                  </div>
-                  <ArrowUpRight className="h-4 w-4 text-muted-foreground" />
-                </div>
-              ))}
+              {stats.totalRfqs === 0 && stats.activeOrders === 0 ? (
+                <p className="text-sm text-muted-foreground text-center py-4">
+                  No recent activity yet. Get started by creating your first RFQ!
+                </p>
+              ) : (
+                <p className="text-sm text-muted-foreground text-center py-4">
+                  Activity feed coming soon...
+                </p>
+              )}
             </div>
           </CardContent>
         </Card>
